@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="divider_height">1dp</dimen>
+    <dimen name="search_text_width">156dp</dimen>
+    <dimen name="search_text_height">88dp</dimen>
+    <dimen name="main_layout_margin">36dp</dimen>
+    <dimen name="books_list_padding">24dp</dimen>
+    <dimen name="book_title_height">42dp</dimen>
+    <dimen name="book_attributes_height">36dp</dimen>
+</resources>

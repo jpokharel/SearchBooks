@@ -20,13 +20,13 @@ public class BookDataLoader extends AsyncTaskLoader<List<BookData>> {
 
     @Override
     public List<BookData> loadInBackground() {
-        if(this.url == null)
+        if (this.url == null)
             return null;
         return Utils.fetchBookData(url);
     }
 
     @Override
-    public void onStartLoading(){
+    public void onStartLoading() {
         forceLoad();
     }
 }

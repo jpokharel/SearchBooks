@@ -7,13 +7,13 @@ package com.example.android.searchbooks;
 public class BookData {
     private String title;
     private String author;
-    private int publishedDate;
+    private String publishedDate;
     private String printType;
 
     public BookData() { //Deault Constructor to facilitate instiation
     }
 
-    public BookData(String title, String author, int publishedDate, String printType) {
+    public BookData(String title, String author, String publishedDate, String printType) {
         this.title = title;
         this.author = author;
         this.publishedDate = publishedDate;
@@ -36,11 +36,11 @@ public class BookData {
         this.author = author;
     }
 
-    public int getPublishedDate() {
+    public String getPublishedDate() {
         return publishedDate;
     }
 
-    public void setPublishedDate(int publishedDate) {
+    public void setPublishedDate(String publishedDate) {
         this.publishedDate = publishedDate;
     }
 
