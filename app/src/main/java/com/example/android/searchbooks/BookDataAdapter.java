@@ -36,6 +36,8 @@ public class BookDataAdapter extends ArrayAdapter<BookData> {
         TextView authorName = (TextView) convertView.findViewById(R.id.author_name);
         if (bookData.getAuthor().contains(","))
             authorName.setText("Author(s): " + bookData.getAuthor());
+        else if (bookData.getAuthor().trim() == "")
+            authorName.setText("");
         else
             authorName.setText("Author: " + bookData.getAuthor());
         TextView publishedDate = (TextView) convertView.findViewById(R.id.published_date);

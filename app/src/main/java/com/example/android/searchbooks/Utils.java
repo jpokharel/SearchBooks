@@ -53,12 +53,14 @@ public final class Utils {
                     propertiesObject = eachJson.getJSONObject(VOLUME_INFO);
                     String title = propertiesObject.getString(TITLE);
                     String author = "";
-                    JSONArray authors = propertiesObject.optJSONArray(AUTHORS); //To handle no authors.
-                    for (int n = 0; n < authors.length(); n++) {
-                        if (author == "")
-                            author = authors.getString(n);
-                        else
-                            author += (", " + authors.getString(n));
+                    if (propertiesObject.has(AUTHORS)) {
+                        JSONArray authors = propertiesObject.optJSONArray(AUTHORS); //To handle no authors.
+                        for (int n = 0; n < authors.length(); n++) {
+                            if (author == "")
+                                author = authors.getString(n);
+                            else
+                                author += (", " + authors.getString(n));
+                        }
                     }
                     author = author.trim();
 
