@@ -26,6 +26,12 @@ public final class Utils {
 
     private static final int READ_TIME_OUT = 10000;
     private static final int CONNECT_TIME_OUT = 15000;
+    private static final String TITLE = "title";
+    private static final String VOLUME_INFO = "volumeInfo";
+    private static final String ITEMS = "items";
+    private static final String AUTHORS = "authors";
+    private static final String PRINT_TYPE = "printType";
+    private static final String PUBLISHED_DATE = "publishedDate";
 
     private Utils() {
     }
@@ -39,15 +45,15 @@ public final class Utils {
             JSONObject jsonObject = new JSONObject(jsonResponse);
             JSONObject eachJson, propertiesObject;
 
-            if (jsonObject.has("items")) { //Shall parse only valid data that has items
-                JSONArray features = jsonObject.getJSONArray("items");
+            if (jsonObject.has(ITEMS)) { //Shall parse only valid data that has items
+                JSONArray features = jsonObject.getJSONArray(ITEMS);
 
                 for (int i = 0; i < features.length(); i++) {
                     eachJson = features.getJSONObject(i);
-                    propertiesObject = eachJson.getJSONObject("volumeInfo");
-                    String title = propertiesObject.getString("title");
+                    propertiesObject = eachJson.getJSONObject(VOLUME_INFO);
+                    String title = propertiesObject.getString(TITLE);
                     String author = "";
-                    JSONArray authors = propertiesObject.optJSONArray("authors"); //To handle no authors.
+                    JSONArray authors = propertiesObject.optJSONArray(AUTHORS); //To handle no authors.
                     for (int n = 0; n < authors.length(); n++) {
                         if (author == "")
                             author = authors.getString(n);
@@ -56,8 +62,8 @@ public final class Utils {
                     }
                     author = author.trim();
 
-                    String publishedDate = propertiesObject.getString("publishedDate");
-                    String printType = propertiesObject.getString("printType");
+                    String publishedDate = propertiesObject.getString(PUBLISHED_DATE);
+                    String printType = propertiesObject.getString(PRINT_TYPE);
 
                     books.add(new BookData(title, author, publishedDate, printType));
                 }
