@@ -24,6 +24,9 @@ import java.util.List;
 
 public final class Utils {
 
+    private static final int READ_TIME_OUT = 10000;
+    private static final int CONNECT_TIME_OUT = 15000;
+
     private Utils() {
     }
 
@@ -35,26 +38,29 @@ public final class Utils {
         try {
             JSONObject jsonObject = new JSONObject(jsonResponse);
             JSONObject eachJson, propertiesObject;
-            JSONArray features = jsonObject.getJSONArray("items");
 
-            for (int i = 0; i < features.length(); i++) {
-                eachJson = features.getJSONObject(i);
-                propertiesObject = eachJson.getJSONObject("volumeInfo");
-                String title = propertiesObject.getString("title");
-                String author = "";
-                JSONArray authors = propertiesObject.getJSONArray("authors");
-                for (int n = 0; n < authors.length(); n++) {
-                    if (author == "")
-                        author = authors.getString(n);
-                    else
-                        author += (", " + authors.getString(n));
+            if (jsonObject.has("items")) { //Shall parse only valid data that has items
+                JSONArray features = jsonObject.getJSONArray("items");
+
+                for (int i = 0; i < features.length(); i++) {
+                    eachJson = features.getJSONObject(i);
+                    propertiesObject = eachJson.getJSONObject("volumeInfo");
+                    String title = propertiesObject.getString("title");
+                    String author = "";
+                    JSONArray authors = propertiesObject.optJSONArray("authors"); //To handle no authors.
+                    for (int n = 0; n < authors.length(); n++) {
+                        if (author == "")
+                            author = authors.getString(n);
+                        else
+                            author += (", " + authors.getString(n));
+                    }
+                    author = author.trim();
+
+                    String publishedDate = propertiesObject.getString("publishedDate");
+                    String printType = propertiesObject.getString("printType");
+
+                    books.add(new BookData(title, author, publishedDate, printType));
                 }
-                author = author.trim();
-
-                String publishedDate = propertiesObject.getString("publishedDate");
-                String printType = propertiesObject.getString("printType");
-
-                books.add(new BookData(title, author, publishedDate, printType));
             }
 
         } catch (JSONException e) {
@@ -69,7 +75,7 @@ public final class Utils {
         try {
             jsonResponse = makeHttpRequest(url);
         } catch (IOException ioe) {
-            Log.e("Query Utils: ", " IO Exception: ", ioe);
+            Log.e("Utils: ", " IO Exception: ", ioe);
         }
         return getBookInformation(jsonResponse);
     }
@@ -94,8 +100,8 @@ public final class Utils {
         InputStream inputStream = null;
         try {
             httpURLConnection = (HttpURLConnection) url.openConnection();
-            httpURLConnection.setReadTimeout(10000);
-            httpURLConnection.setConnectTimeout(15000);
+            httpURLConnection.setReadTimeout(READ_TIME_OUT);
+            httpURLConnection.setConnectTimeout(CONNECT_TIME_OUT);
             httpURLConnection.setRequestMethod("GET");
             httpURLConnection.connect();
 

@@ -2,4 +2,6 @@
     <string name="app_name">SearchBooks</string>
     <string name="search_books_here">Search books here...</string>
     <string name="search_button_text">search</string>
+    <string name="no_internet_connection">No Internet Connection!</string>
+    <string name="no_book_message">No such book.</string>
 </resources>

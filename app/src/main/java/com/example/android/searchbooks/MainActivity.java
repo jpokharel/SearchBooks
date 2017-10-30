@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
         } else {
             searchTextView.setVisibility(View.GONE);
             searchButton.setVisibility(View.GONE);
-            infoTextView.setText("No Internet Connection!");
+            infoTextView.setText(R.string.no_internet_connection);
         }
     }
 }

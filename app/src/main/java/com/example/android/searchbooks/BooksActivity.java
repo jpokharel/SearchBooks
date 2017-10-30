@@ -45,7 +45,7 @@ public class BooksActivity extends AppCompatActivity implements LoaderManager.Lo
         else {
             View progressBar = findViewById(R.id.progress_bar);
             progressBar.setVisibility(View.GONE);
-            emptyTextView.setText("No Internet Connection!");
+            emptyTextView.setText(R.string.no_internet_connection);
         }
     }
 
@@ -58,7 +58,7 @@ public class BooksActivity extends AppCompatActivity implements LoaderManager.Lo
     public void onLoadFinished(Loader<List<BookData>> loader, List<BookData> data) {
         View progressBar = findViewById(R.id.progress_bar);
         progressBar.setVisibility(View.GONE);
-        emptyTextView.setText("No such book.");
+        emptyTextView.setText(R.string.no_book_message);
         bookDataAdapter.clear();
         if (data != null && !data.isEmpty())
             bookDataAdapter.addAll(data);
